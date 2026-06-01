@@ -1,0 +1,17 @@
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/lib/robot_teleop/joy_to_servo
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop//src/joy_to_servo.cpp
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/ament_index/resource_index/package_run_dependencies/robot_teleop
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/ament_index/resource_index/parent_prefix_path/robot_teleop
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/environment/ament_prefix_path.sh
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/environment/ament_prefix_path.dsv
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/environment/path.sh
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/environment/path.dsv
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/local_setup.bash
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/local_setup.sh
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/local_setup.zsh
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/local_setup.dsv
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/package.dsv
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/ament_index/resource_index/packages/robot_teleop
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/cmake/robot_teleopConfig.cmake
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/cmake/robot_teleopConfig-version.cmake
+/home/pawo90/ros2_ws/piper_robot/install/robot_teleop/share/robot_teleop/package.xml

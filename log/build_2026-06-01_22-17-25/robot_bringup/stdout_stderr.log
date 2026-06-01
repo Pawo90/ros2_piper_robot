@@ -1,0 +1,37 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Configuring done (0.8s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/pawo90/ros2_ws/piper_robot/build/robot_bringup
+-- Install configuration: ""
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup//config
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup//launch
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup//launch/robot.launch.py
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup//launch/robot.launch.xml
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/ament_index/resource_index/package_run_dependencies/robot_bringup
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/ament_index/resource_index/parent_prefix_path/robot_bringup
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/environment/ament_prefix_path.sh
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/environment/ament_prefix_path.dsv
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/environment/path.sh
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/environment/path.dsv
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/local_setup.bash
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/local_setup.sh
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/local_setup.zsh
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/local_setup.dsv
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/package.dsv
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/ament_index/resource_index/packages/robot_bringup
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/cmake/robot_bringupConfig.cmake
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/cmake/robot_bringupConfig-version.cmake
+-- Installing: /home/pawo90/ros2_ws/piper_robot/install/robot_bringup/share/robot_bringup/package.xml
