@@ -12,6 +12,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(moveit_msgs REQUIRED)
 find_package(control_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 add_executable(joy_to_servo src/joy_to_servo.cpp)
 ament_target_dependencies(joy_to_servo
@@ -19,7 +20,8 @@ ament_target_dependencies(joy_to_servo
  sensor_msgs
  std_srvs
  moveit_msgs
- control_msgs)
+ control_msgs
+ geometry_msgs)
 
 
 install(
