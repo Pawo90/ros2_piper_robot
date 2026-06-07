@@ -1,1 +1,5 @@
-build/ install/ log/ .colcon/
+build/
+install/
+log/
+.colcon/
+.vscode/
