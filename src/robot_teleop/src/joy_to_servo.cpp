@@ -43,7 +43,7 @@ public:
 
     timer_ = this->create_timer(
       std::chrono::milliseconds(10),
-      std::bind(&JoyToServoNode::publishJog, this)
+      std::bind(&JoyToServoNode::publish_jog, this)
     );
          
     // --- SUBSCRIBERS ---
@@ -59,7 +59,7 @@ public:
   }
 
   // --- CALL CLIENTS SEVICES ---
-  void callPauseServo(bool value) {
+  void call_pause_servo(bool value) {
     while (!servo_pause_client_->wait_for_service(std::chrono::seconds(2))) {
       RCLCPP_WARN(this->get_logger(), "Waiting for /servo_node/pause_servo...");
     }
@@ -68,14 +68,14 @@ public:
     request->data = value;
     servo_pause_client_->async_send_request(
       request,
-      std::bind(&JoyToServoNode::callbackPauseServoResponse, this, _1)
+      std::bind(&JoyToServoNode::callback_pause_servo_response, this, _1)
     );
   }
 
 
 private:
   // --- CALL METHODS ---
-  void callSwtichCommandType(int8_t value) {
+  void call_switch_command_type(int8_t value) {
     while (!switch_command_type_client_->wait_for_service(std::chrono::seconds(2))) {
       RCLCPP_WARN(this->get_logger(), "Waiting /servo_node/switch_command_type...");
     }
@@ -84,24 +84,27 @@ private:
     request->command_type = value;
     switch_command_type_client_->async_send_request(
       request,
-      std::bind(&JoyToServoNode::callbackSwtichCommandType, this, _1)
+      std::bind(&JoyToServoNode::callback_switch_command_type, this, _1)
     );
 
   }
 
   // --- SERVICES CLIENTS CALLBACKS ---
-  void callbackPauseServoResponse(rclcpp::Client<SetBool>::SharedFuture future){
+  void callback_pause_servo_response(rclcpp::Client<SetBool>::SharedFuture future){
       auto response = future.get();
       RCLCPP_INFO(this->get_logger(), "Get response: %d, Message: %s", (int)response->success, response->message.c_str());
   }
 
-  void callbackSwtichCommandType(rclcpp::Client<ServoCommandType>::SharedFuture future){
+  void callback_switch_command_type(rclcpp::Client<ServoCommandType>::SharedFuture future){
       auto response = future.get();
       RCLCPP_INFO(this->get_logger(), "Changing move mode request response: %d", (int)response->success);
   }
 
   // --- PUBLISHER ---
-  void publishJog() {
+  void publish_jog() {
+
+    // Guard
+    if (joint_names_.empty() || joint_names_[0].empty()) return;
 
     builtin_interfaces::msg::Time stamp = this->get_clock()->now();
     std::string frame_id = "base_link";
@@ -114,15 +117,9 @@ private:
       joint_msg.joint_names = {joint_names_[selected_joint_idx_]};
       joint_msg.duration = 0.0;
 
-      if (joy_axes_[0] >= 0.7) {
-        joint_msg.velocities = {0.3};
+      joint_msg.velocities = {(joy_axes_[1] >= 0.7) ? 0.3 :
+                             ( joy_axes_[1] <= -0.7) ? -0.3 : 0.0};
 
-      } else if ((joy_axes_[0] <= -0.7)) {
-        joint_msg.velocities = {-0.3};
-
-      } else {
-        joint_msg.velocities = {0.0};
-      }
       joint_jog_publisher_->publish(joint_msg);    
     }
 
@@ -179,7 +176,7 @@ private:
       handle_joint_selection();
     }
 
-    // Save last states of joy byttons
+    // Save last states of joy buttons
     buttons_mem_ = joy_buttons_;
   };
 
@@ -191,19 +188,19 @@ private:
       current_mode_ = static_cast<ServoMode>((static_cast<int>(current_mode_) + 1) % 3);
     }
     if (btn_A_pressed) {
-      current_mode_ = static_cast<ServoMode>((static_cast<int>(current_mode_) + 2) % 3);;
+      current_mode_ = static_cast<ServoMode>((static_cast<int>(current_mode_) + 2) % 3);
     }
 
     if (btn_A_pressed || btn_Y_pressed) {
+      // Prevent unintended movement after joint switch
+      std::fill(joy_axes_.begin(), joy_axes_.end(), 0.0f);
+
       const std::map<ServoMode, std::string> mode_names = {
-        {ServoMode::JOINT, "JOINT"},
-        {ServoMode::TWIST, "TWIST"},
-        {ServoMode::POSE,  "POSE"}
+        {ServoMode::JOINT, "JOINT"}, {ServoMode::TWIST, "TWIST"}, {ServoMode::POSE, "POSE"}
       };
 
       RCLCPP_INFO(this->get_logger(), "Set mode to: %d: %s", (int)current_mode_, mode_names.at(current_mode_).c_str());
-
-      callSwtichCommandType(int(current_mode_));
+      call_switch_command_type(int(current_mode_));
     }
   }
 
@@ -219,7 +216,9 @@ private:
       selected_joint_idx_ = std::max(selected_joint_idx_ - 1, 0);
     }
 
-    if (btn_B_pressed or btn_X_pressed) {
+    if (btn_B_pressed || btn_X_pressed) {
+      // Prevent unintended movement after joint switch
+      std::fill(joy_axes_.begin(), joy_axes_.end(), 0.0f);
       RCLCPP_INFO(this->get_logger(), "Set to %s", joint_names_[selected_joint_idx_].c_str());
     }
   }
@@ -255,7 +254,7 @@ int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<JoyToServoNode>();
-  node->callPauseServo(false);
+  node->call_pause_servo(false);
   rclcpp::spin(node);
   rclcpp::shutdown();
   return 0;
