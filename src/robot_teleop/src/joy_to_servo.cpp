@@ -132,28 +132,17 @@ private:
       twist_msg.header.stamp = stamp;
       twist_msg.header.frame_id = frame_id;
 
-      if (joy_axes_[0] >= 0.7) {
-        twist_msg.twist.linear.x = 0.1;
-        twist_msg.twist.linear.y = 0.0;
-        twist_msg.twist.linear.z = 0.0;
-        twist_msg.twist.angular.x = 0.0;
-        twist_msg.twist.angular.y = 0.0;
-        twist_msg.twist.angular.z = 0.0;
-      } else if ((joy_axes_[0] <= -0.7)) {
-        twist_msg.twist.linear.x = -0.1;
-        twist_msg.twist.linear.y = 0.0;
-        twist_msg.twist.linear.z = 0.0;
-        twist_msg.twist.angular.x = 0.0;
-        twist_msg.twist.angular.y = 0.0;
-        twist_msg.twist.angular.z = 0.0;
-      } else {
-        twist_msg.twist.linear.x = 0.0;
-        twist_msg.twist.linear.y = 0.0;
-        twist_msg.twist.linear.z = 0.0;
-        twist_msg.twist.angular.x = 0.0;
-        twist_msg.twist.angular.y = 0.0;
-        twist_msg.twist.angular.z = 0.0;;
-      }  
+      twist_msg.twist.linear.x = (joy_axes_[0] >= 0.7)  ?  0.1 :
+                                 (joy_axes_[0] <= -0.7) ? -0.1 : 0.0;
+      twist_msg.twist.linear.y = (joy_axes_[1] >= 0.7)  ?  0.1 :
+                                 (joy_axes_[1] <= -0.7) ? -0.1 : 0.0;
+
+      twist_msg.twist.linear.z = 0.0;
+      twist_msg.twist.angular.x = (joy_axes_[2] >= 0.7)  ?  0.1 :
+                                  (joy_axes_[2] <= -0.7) ? -0.1 : 0.0;
+      twist_msg.twist.angular.y = (joy_axes_[3] >= 0.7)  ?  0.1 :
+                                  (joy_axes_[3] <= -0.7) ? -0.1 : 0.0;
+      twist_msg.twist.angular.z = 0.0;
 
       twist_jog_publisher_->publish(twist_msg);
     }
@@ -163,7 +152,6 @@ private:
 
   // --- SUBSCRIBERS CALLBACKS ---
   void callback_joint_states(const JointState::SharedPtr msg) {
-
     // std::ostringstream oss;
     // for (const auto& name : msg->name) {
     //   oss << name << " ";
@@ -217,8 +205,6 @@ private:
 
       callSwtichCommandType(int(current_mode_));
     }
-
-
   }
 
   void handle_joint_selection() {
