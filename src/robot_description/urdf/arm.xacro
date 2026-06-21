@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- <robot name="piper_arm" xmlns:xacro="http://www.ros.org/wiki/xacro"> -->
 <robot  xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
     <!-- MESHES -->
-    <xacro:property name="arm_base_link" value="package://robot_description/meshes/arm_base_link.STL" />
-    <xacro:property name="arm_link1"     value="package://robot_description/meshes/arm_link1.STL" />
-    <xacro:property name="arm_link2"     value="package://robot_description/meshes/arm_link2.STL" />
-    <xacro:property name="arm_link3"     value="package://robot_description/meshes/arm_link3.STL" />
-    <xacro:property name="arm_link4"     value="package://robot_description/meshes/arm_link4.STL" />
-    <xacro:property name="arm_link5"     value="package://robot_description/meshes/arm_link5.STL" />
-    <xacro:property name="arm_link6"     value="package://robot_description/meshes/arm_link6.STL" />
+    <xacro:property name="mesh_path" value="file://$(find robot_description)/meshes" />
+
+    <xacro:property name="arm_base_link" value="${mesh_path}/arm_base_link.STL" />
+    <xacro:property name="arm_link1"     value="${mesh_path}/arm_link1.STL" />
+    <xacro:property name="arm_link2"     value="${mesh_path}/arm_link2.STL" />
+    <xacro:property name="arm_link3"     value="${mesh_path}/arm_link3.STL" />
+    <xacro:property name="arm_link4"     value="${mesh_path}/arm_link4.STL" />
+    <xacro:property name="arm_link5"     value="${mesh_path}/arm_link5.STL" />
+    <xacro:property name="arm_link6"     value="${mesh_path}/arm_link6.STL" />
 
 
     <!-- LINKS -->
@@ -18,7 +19,8 @@
     <link name="base_link">
         <inertial>
             <origin xyz="-0.00473641164191482 2.56829134630247E-05 0.041451518036016" rpy="0 0 0"/>
-            <mass value="1.02"/>
+            <!-- <mass value="1.02"/> -->
+            <mass value="10.0"/>
             <inertia ixx="0.00267433" ixy="-0.00000073" ixz="-0.00017389"
                      iyy="0.00282612" iyz="0.0000004"   izz="0.00089624"/>
         </inertial>
