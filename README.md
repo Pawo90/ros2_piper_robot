@@ -1,7 +1,5 @@
 # ros2_piper_robot
 
-# ros2_piper_robot
-
 A ROS 2 (Jazzy) workspace for the **Piper** 6-DOF robotic arm, covering URDF/Gazebo simulation, MoveIt 2 motion planning, real-time servoing, and two teleoperation modes — joystick and hand-gesture control via a perception pipeline.
 
 ## Overview
