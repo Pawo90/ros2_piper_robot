@@ -5,6 +5,7 @@
     <xacro:include filename="_common.xacro" />
     <xacro:include filename="arm.xacro" />
     <xacro:include filename="arm_gazebo.xacro" />
+    <xacro:include filename="gripper.xacro" />
 
     
 </robot>
