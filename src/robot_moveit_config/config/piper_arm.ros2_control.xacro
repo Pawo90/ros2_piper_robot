@@ -11,7 +11,6 @@
                 <plugin>gz_ros2_control/GazeboSimSystem</plugin>
 
             </hardware>
-            
             <joint name="joint1">
                 <command_interface name="position"/>
                 <state_interface name="position">
@@ -54,6 +53,13 @@
                 </state_interface>
                 <state_interface name="velocity"/>
             </joint>
+            <joint name="left_jaw_to_gripper_base">
+                <command_interface name="position"/>
+                <state_interface name="position">
+                  <param name="initial_value">${initial_positions['left_jaw_to_gripper_base']}</param>
+                </state_interface>
+                <state_interface name="velocity"/>
+            </joint>
 
         </ros2_control>
 
@@ -63,7 +69,6 @@
                 <parameters>$(find robot_moveit_config)/config/ros2_controllers.yaml</parameters>
             </plugin>
         </gazebo>
-        
 
     </xacro:macro>
 </robot>

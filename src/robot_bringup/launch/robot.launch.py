@@ -71,7 +71,7 @@ def generate_launch_description():
 
     # Build moveit_config object
     moveit_config = (
-        MoveItConfigsBuilder("robot")
+        MoveItConfigsBuilder("piper_arm", package_name="robot_moveit_config")
         .robot_description(file_path = robot_description_path)
         .joint_limits(file_path = robot_joint_limits_path)
         .to_moveit_configs()
@@ -140,7 +140,7 @@ def generate_launch_description():
     acceleration_filter_update_period = {"update_period": 0.01}
     planning_group_name = {"planning_group_name": "arm"}
 
-        # Launch as much as possible in components
+    # Launch as much as possible in components
     container = launch_ros.actions.ComposableNodeContainer(
         name="moveit_servo_demo_container",
         namespace="/",

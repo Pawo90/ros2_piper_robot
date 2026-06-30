@@ -47,6 +47,13 @@ def generate_launch_description():
         "moveit.rviz"
     )
 
+    # Gazebo World config
+    gz_world_path  = os.path.join(
+        get_package_share_directory("robot_bringup"),
+        "worlds",
+        "simple_world.sdf"
+    )
+
     # =========================
     # Sim time
     # =========================
@@ -67,9 +74,9 @@ def generate_launch_description():
         .to_dict()
     )
 
-        # Build moveit_config object
+    # Build moveit_config object
     moveit_config = (
-        MoveItConfigsBuilder("robot")
+        MoveItConfigsBuilder("piper_arm", package_name="robot_moveit_config")
         .robot_description(file_path = robot_description_path)
         .joint_limits(file_path = joint_limits_path)
         .to_moveit_configs()
@@ -90,6 +97,7 @@ def generate_launch_description():
         parameters=[
             moveit_config.robot_description,
             moveit_config.robot_description_semantic,
+            moveit_config.robot_description_kinematics,
             use_sim_time,
         ],
     )
@@ -116,6 +124,17 @@ def generate_launch_description():
             package="controller_manager",
             executable="spawner",
             arguments=["arm_controller", "-c", "/controller_manager"],
+            parameters=[use_sim_time],
+        )]
+    )
+
+    # Spawn controllers - connected to gz_control_node
+    gripper_controller_spawner = TimerAction(
+        period=6.0,
+        actions=[launch_ros.actions.Node(
+            package="controller_manager",
+            executable="spawner",
+            arguments=["gripper_controller", "-c", "/controller_manager"],
             parameters=[use_sim_time],
         )]
     )
@@ -215,7 +234,7 @@ def generate_launch_description():
                 "gz_sim.launch.py"
             )
         ),
-        launch_arguments={"gz_args": "empty.sdf -r"}.items()
+        launch_arguments={"gz_args": f"{gz_world_path} -r"}.items()
     )
 
     # Spawn: Robot in Gazebo
@@ -246,6 +265,7 @@ def generate_launch_description():
             rviz_node,
             joint_state_broadcaster_spawner,
             arm_controller_spawner,
+            gripper_controller_spawner,
             move_group_node,
             container,
             servo_node,
